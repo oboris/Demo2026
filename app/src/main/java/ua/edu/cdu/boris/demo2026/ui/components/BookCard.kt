@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.edu.cdu.boris.demo2026.model.Book
 
@@ -77,4 +78,10 @@ fun BookCard(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewBookCard(){
+    BookCard(book = Book("bbbbbb", 100, null, 1))
 }
