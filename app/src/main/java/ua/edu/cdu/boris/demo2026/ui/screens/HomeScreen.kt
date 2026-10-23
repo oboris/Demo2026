@@ -91,6 +91,8 @@ fun HorizontalItem(
             .padding(vertical = 8.dp)
     ) {
         LazyRow(
+            modifier = modifier
+                .fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {

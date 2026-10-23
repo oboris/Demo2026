@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 
 @Composable
@@ -68,7 +68,7 @@ fun BookCard(
                     modifier = Modifier.weight(1f, fill = false)
                 )
 
-                Spacer(modifier = Modifier.width(16.dp))
+//                Spacer(modifier = Modifier.width(16.dp))
 
                 Text(
                     text = "${book.pages} стор.",
@@ -83,5 +83,5 @@ fun BookCard(
 @Preview
 @Composable
 fun PreviewBookCard(){
-    BookCard(book = Book("bbbbbb", 100, null, 1))
+    BookCard(book = Book("bbbbbb", 100, Author("Name", "11.12.1222", 1), 1))
 }
