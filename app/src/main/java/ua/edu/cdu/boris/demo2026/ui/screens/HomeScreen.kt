@@ -70,7 +70,10 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 15.dp),
-            onClick = { appViewModel.updateHomeText("123") },
+            onClick = {
+                appViewModel.updateHomeText("123")
+                appViewModel.addAuthors()
+            },
         ) {
             Text(
                 text = "Home Button",

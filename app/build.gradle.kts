@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room3)
 }
 
 android {
@@ -34,9 +36,17 @@ android {
         compose = true
     }
     buildToolsVersion = "37.0.0"
+
+}
+
+room3 {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
+    implementation(libs.androidx.room3.runtime)
+    ksp(libs.androidx.room3.compiler)
+
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(platform(libs.androidx.compose.bom))

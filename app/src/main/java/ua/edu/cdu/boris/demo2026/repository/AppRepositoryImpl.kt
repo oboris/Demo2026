@@ -1,11 +1,13 @@
 package ua.edu.cdu.boris.demo2026.repository
 
+import ua.edu.cdu.boris.demo2026.dao.AppDao
+import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.HorizontalList
 import ua.edu.cdu.boris.demo2026.model.MyListable
 
-class AppRepositoryImpl: AppRepository {
+class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
 
     val myAuthorList: List<Author> = listOf(
         Author("11 Author", "11/11/2022", id = 1),
@@ -43,6 +45,17 @@ class AppRepositoryImpl: AppRepository {
         Book("Book 45", 80, myAuthorList[0], id = 15),
         myAuthorList[4],
     )
+
+    fun Author.toEntity() = AuthorEntity(
+        name = this.name,
+        birthday = this.birthday,
+        id = this.id
+    )
+
+    override suspend fun setAllAuthors() {
+        appDao.delAllAuthors()
+        appDao.insertAllAuthors(myAuthorList.map { it.toEntity() })
+    }
 
 
     override fun getAllData(): List<MyListable> {
