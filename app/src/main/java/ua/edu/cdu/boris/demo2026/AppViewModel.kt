@@ -9,21 +9,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ua.edu.cdu.boris.demo2026.db.AppDataBase
+import ua.edu.cdu.boris.demo2026.model.Author
+import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.repository.AppRepository
-import ua.edu.cdu.boris.demo2026.repository.AppRepositoryImpl
 
-class AppViewModel(private val application: Application) : AndroidViewModel(application) {
+class AppViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val appRepository: AppRepository =
-        AppRepositoryImpl(
-            AppDataBase.getDatabase(
-                getApplication<Application>().applicationContext
-            ).appDao()
-        )
+//    private val appRepository: AppRepository =
+//        AppRepositoryImpl(
+//            AppDataBase.getDatabase(
+//                getApplication<Application>().applicationContext
+//            ).appDao()
+//        )
 
-    private val appRepository1: AppRepository = (application as AppDemo2026).appRepository
+    private val appRepository: AppRepository = (application as AppDemo2026).appRepository
 
     val myHomeText: StateFlow<String>
         field = MutableStateFlow("qqqq")
@@ -39,13 +39,45 @@ class AppViewModel(private val application: Application) : AndroidViewModel(appl
         _myFavoritesText.value = newText
     }
 
-    fun addAuthors() {
+    fun addAuthorsToDb() {
         viewModelScope.launch {
-            appRepository.setAllAuthors()
-            appRepository1.setAllAuthors()
+            appRepository.addAuthorsToDb(appRepository.getLocalAuthors())
+            getAllData()
+        }
+    }
+
+    fun addBooksToDb() {
+        viewModelScope.launch {
+            appRepository.addBooksToDb(appRepository.getLocalBooks())
+            getAllData()
+        }
+    }
+
+    suspend fun getAllData() {
+        appLiveList.postValue(appRepository.getAllDataFromDb())
+    }
+
+    fun clearDataInToDb() {
+        viewModelScope.launch {
+            appRepository.clearAllData()
+            getAllData()
+        }
+    }
+
+    fun deleteBook(book: Book) {
+        viewModelScope.launch {
+            appRepository.deleteBook(book)
+            getAllData()
+        }
+    }
+
+    fun deleteAuthor(author: Author) {
+        viewModelScope.launch {
+            appRepository.deleteAuthor(author)
+            getAllData()
         }
     }
 
     val appLiveList: LiveData<List<MyListable>>
-        field = MutableLiveData(appRepository.getAllData())
+        field = MutableLiveData(emptyList())
 }

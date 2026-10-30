@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -35,12 +36,18 @@ fun HomeScreen(
 ) {
     val myText by appViewModel.myHomeText.collectAsStateWithLifecycle()
     val appList by appViewModel.appLiveList.observeAsState(emptyList())
+
     Column(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Hello in Home $name! $myText",
         )
+
+        LaunchedEffect(Unit) {
+            appViewModel.getAllData()
+        }
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -60,23 +67,50 @@ fun HomeScreen(
                     }"
                 }) { item ->
                 when (item) {
-                    is Author -> AuthorCard(author = item)
-                    is Book -> BookCard(book = item)
+                    is Author -> AuthorCard(
+                        author = item,
+                        onDelBtnClick = {
+                            appViewModel.deleteAuthor(item)
+                        }
+                    )
+
+                    is Book -> BookCard(
+                        book = item,
+                        onDelBtnClick = {
+                            appViewModel.deleteBook(item)
+                        }
+                    )
+
                     is HorizontalList -> HorizontalItem(item)
                 }
             }
         }
+
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 15.dp),
             onClick = {
                 appViewModel.updateHomeText("123")
-                appViewModel.addAuthors()
+                appViewModel.addAuthorsToDb()
+                appViewModel.addBooksToDb()
             },
         ) {
             Text(
                 text = "Home Button",
+            )
+        }
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
+            onClick = {
+                appViewModel.clearDataInToDb()
+            },
+        ) {
+            Text(
+                text = "Clear Data Base",
             )
         }
     }
