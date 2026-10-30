@@ -25,6 +25,7 @@ import ua.edu.cdu.boris.demo2026.model.Book
 fun BookCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    onDelBtnClick: () -> Unit = {},
     book: Book,
 ) {
     Card(
@@ -43,14 +44,32 @@ fun BookCard(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(
-                text = book.title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = book.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                DeleteButton(onDelBtnClick)
+
+//                Button(
+//                    onClick = onDelBtnClick,
+//                    colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.error)
+//                ) {
+//                    Icon(
+//                        painterResource(R.drawable.outline_delete_24),
+//                        contentDescription = "Delete Button"
+//                    )
+//                }
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -83,5 +102,5 @@ fun BookCard(
 @Preview
 @Composable
 fun PreviewBookCard(){
-    BookCard(book = Book("bbbbbb", 100, Author("Name", "11.12.1222", 1), 1))
+    BookCard(book = Book("Boor Title", 100, Author("Author Name", "11.12.1222", 1), 1))
 }

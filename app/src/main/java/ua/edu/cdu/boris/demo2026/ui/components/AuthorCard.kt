@@ -28,6 +28,7 @@ import ua.edu.cdu.boris.demo2026.model.Author
 fun AuthorCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    onDelBtnClick: () -> Unit = {},
     author: Author,
 ) {
     Card(
@@ -81,6 +82,10 @@ fun AuthorCard(
                     overflow = TextOverflow.Ellipsis
                 )
             }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            DeleteButton(onDelBtnClick)
         }
     }
 }
