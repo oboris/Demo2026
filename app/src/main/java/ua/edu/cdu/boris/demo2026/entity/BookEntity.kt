@@ -29,7 +29,7 @@ data class BookEntity(
         name = "author_id",
         index = true
     )
-    val authorId: Int,
+    val authorId: Int?,
 
     @PrimaryKey(
         autoGenerate = true
@@ -37,5 +37,5 @@ data class BookEntity(
     @ColumnInfo(
         name = "book_id"
     )
-    val id: Int
+    val id: Int = 0
 )

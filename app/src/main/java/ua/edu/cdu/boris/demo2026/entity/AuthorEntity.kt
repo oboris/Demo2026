@@ -21,5 +21,5 @@ data class AuthorEntity (
     @ColumnInfo(
         name = "author_id"
     )
-    val id: Int
+    val id: Int = 0
 )
