@@ -16,17 +16,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.edu.cdu.boris.demo2026.AppViewModel
 
 @Composable
-fun FavoritesScreen(name: String,
-                    modifier: Modifier = Modifier,
-                    appViewModel: AppViewModel = viewModel()) {
+fun FavoritesScreen(
+    name: String,
+    modifier: Modifier = Modifier,
+    appViewModel: AppViewModel = viewModel()
+) {
     val myText by appViewModel.myFavoritesText.collectAsStateWithLifecycle()
-    Column(modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = "Hello in Favorites $name! $myText",
         )
+
         Button(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
             onClick = { appViewModel.updateFavoritesText("456") },
         ) {
             Text(
