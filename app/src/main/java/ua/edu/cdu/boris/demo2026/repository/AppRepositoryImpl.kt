@@ -1,11 +1,12 @@
 package ua.edu.cdu.boris.demo2026.repository
 
 import ua.edu.cdu.boris.demo2026.dao.AppDao
-import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.HorizontalList
 import ua.edu.cdu.boris.demo2026.model.MyListable
+import ua.edu.cdu.boris.demo2026.util.toDomain
+import ua.edu.cdu.boris.demo2026.util.toEntity
 
 class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
 
@@ -46,19 +47,48 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         myAuthorList[4],
     )
 
-    fun Author.toEntity() = AuthorEntity(
-        name = this.name,
-        birthday = this.birthday,
-        id = this.id
-    )
-
-    override suspend fun setAllAuthors() {
-        appDao.delAllAuthors()
-        appDao.insertAllAuthors(myAuthorList.map { it.toEntity() })
+    override suspend fun addAuthorsToDb(authors: List<Author>) {
+        appDao.insertAllAuthors(authors.map { it.toEntity() })
     }
 
+    override suspend fun addBooksToDb(books: List<Book>) {
+        appDao.insertAllBooks(books.map { it.toEntity() })
+    }
 
-    override fun getAllData(): List<MyListable> {
+    override suspend fun getBooksFromDb(): List<Book> {
+        return  appDao.getBooks().map { it.toDomain() }
+    }
+
+    override suspend fun getAuthorsFromDb(): List<Author> {
+        return appDao.getAuthors().map { it.toDomain() }
+    }
+
+    override suspend fun getAllDataFromDb(): List<MyListable> {
+        return getAuthorsFromDb().plus(getBooksFromDb())
+    }
+
+    override suspend fun deleteBook(book: Book) {
+        appDao.delBook(book.toEntity())
+    }
+
+    override suspend fun deleteAuthor(author: Author) {
+        appDao.delAuthor(author.toEntity())
+    }
+
+    override fun getAllLocalData(): List<MyListable> {
         return myAppList
+    }
+
+    override fun getLocalAuthors(): List<Author> {
+        return myAuthorList
+    }
+
+    override fun getLocalBooks(): List<Book> {
+        return myAppList.filterIsInstance<Book>()
+    }
+
+    override suspend fun clearAllData() {
+        appDao.delAllBooks()
+        appDao.delAllAuthors()
     }
 }
