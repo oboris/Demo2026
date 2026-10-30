@@ -22,7 +22,7 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
             author = null,
             pages = 200,
             title = "Book 1",
-            id = 0
+            id = 16
         ),
         Book("Book 2", 300, myAuthorList[0], id = 1),
         Book("Book 3", 30, myAuthorList[1], id = 2),

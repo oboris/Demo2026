@@ -92,8 +92,9 @@ fun HomeScreen(
                 .padding(horizontal = 15.dp),
             onClick = {
                 appViewModel.updateHomeText("123")
-                appViewModel.addAuthorsToDb()
-                appViewModel.addBooksToDb()
+//                appViewModel.addAuthorsToDb()
+//                appViewModel.addBooksToDb()
+                appViewModel.addAllLocalData()
             },
         ) {
             Text(

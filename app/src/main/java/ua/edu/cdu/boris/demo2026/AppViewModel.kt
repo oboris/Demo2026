@@ -78,6 +78,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun addAllLocalData() {
+        viewModelScope.launch {
+            appRepository.addAuthorsToDb(appRepository.getLocalAuthors())
+            appRepository.addBooksToDb(appRepository.getLocalBooks())
+            getAllData()
+        }
+    }
+
     val appLiveList: LiveData<List<MyListable>>
         field = MutableLiveData(emptyList())
 }

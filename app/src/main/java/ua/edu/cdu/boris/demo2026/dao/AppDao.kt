@@ -5,6 +5,7 @@ import androidx.room3.Delete
 import androidx.room3.Insert
 import androidx.room3.OnConflictStrategy
 import androidx.room3.Query
+import androidx.room3.Transaction
 import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.entity.BookEntity
 import ua.edu.cdu.boris.demo2026.entity.BookWithAuthor
@@ -43,6 +44,7 @@ interface AppDao {
     @Query("DELETE FROM books")
     suspend fun delAllBooks()
 
+    @Transaction
     @Query("SELECT * FROM books")
     suspend fun getBooks() : List<BookWithAuthor>
 }
