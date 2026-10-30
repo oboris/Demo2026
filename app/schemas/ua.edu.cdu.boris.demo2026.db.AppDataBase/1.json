@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ba6cd91c5f6b8538fafc9eff5714981d",
+    "identityHash": "4d7366e048e84c8b1c8ba770ac4573e1",
     "entities": [
       {
         "tableName": "authors",
@@ -36,7 +36,7 @@
       },
       {
         "tableName": "books",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`book_title` TEXT NOT NULL, `pages` INTEGER NOT NULL, `author_id` INTEGER NOT NULL, `book_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`author_id`) REFERENCES `authors`(`author_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`book_title` TEXT NOT NULL, `pages` INTEGER NOT NULL, `author_id` INTEGER, `book_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`author_id`) REFERENCES `authors`(`author_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "title",
@@ -53,8 +53,7 @@
           {
             "fieldPath": "authorId",
             "columnName": "author_id",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "INTEGER"
           },
           {
             "fieldPath": "id",
@@ -97,7 +96,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba6cd91c5f6b8538fafc9eff5714981d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4d7366e048e84c8b1c8ba770ac4573e1')"
     ]
   }
 }
