@@ -12,7 +12,7 @@ import ua.edu.cdu.boris.demo2026.entity.BookWithAuthor
 
 @Dao
 interface AppDao {
-    //Author DAO
+//    Author DAO
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAuthor(authorEntity: AuthorEntity)
 
@@ -31,7 +31,7 @@ interface AppDao {
     @Query("SELECT * FROM authors")
     suspend fun getAuthors() : List<AuthorEntity>
 
-    //Book DAO
+//    Book DAO
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(bookEntity: BookEntity)
 
@@ -45,6 +45,6 @@ interface AppDao {
     suspend fun delAllBooks()
 
     @Transaction
-    @Query("SELECT * FROM books")
+    @Query("SELECT * FROM books ORDER BY book_title")
     suspend fun getBooks() : List<BookWithAuthor>
 }
