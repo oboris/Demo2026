@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Demo 2026</string>
     <string name="greeting_name">Андроїд</string>
+    <string name="unknown_author">Невідомий автор</string>
 </resources>
