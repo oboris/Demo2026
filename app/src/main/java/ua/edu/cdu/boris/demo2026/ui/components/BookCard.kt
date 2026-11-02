@@ -14,19 +14,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ua.edu.cdu.boris.demo2026.R
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 
 @Composable
 fun BookCard(
+    book: Book,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     onDelBtnClick: () -> Unit = {},
-    book: Book,
 ) {
     Card(
         onClick = onClick,
@@ -79,7 +81,7 @@ fun BookCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = book.author?.name ?: "Невідомий автор",
+                    text = book.author?.name ?: stringResource(R.string.unknown_author),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                     maxLines = 1,

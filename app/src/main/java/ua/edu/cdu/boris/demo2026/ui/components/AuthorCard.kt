@@ -18,18 +18,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ua.edu.cdu.boris.demo2026.R
 import ua.edu.cdu.boris.demo2026.model.Author
 
 @Composable
 fun AuthorCard(
+    author: Author?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     onDelBtnClick: () -> Unit = {},
-    author: Author,
 ) {
     Card(
         onClick = onClick,
@@ -55,7 +57,7 @@ fun AuthorCard(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = author.name.take(1).uppercase(),
+                    text = author?.name?.take(1)?.uppercase() ?: "?",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.Bold
@@ -66,7 +68,7 @@ fun AuthorCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = author.name,
+                    text = author?.name ?: stringResource(R.string.unknown_author),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -75,7 +77,7 @@ fun AuthorCard(
                 )
 
                 Text(
-                    text = "Дата народження: ${author.birthday}",
+                    text = "Дата народження: ${author?.birthday}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
                     maxLines = 1,
