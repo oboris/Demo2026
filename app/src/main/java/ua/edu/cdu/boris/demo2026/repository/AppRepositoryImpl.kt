@@ -67,6 +67,14 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         return getAuthorsFromDb().plus(getBooksFromDb())
     }
 
+    override suspend fun updateAuthorInDb(author: Author) {
+        appDao.updateAuthor(author.toEntity())
+    }
+
+    override suspend fun updateBookInDb(book: Book) {
+        appDao.updateBook(book.toEntity())
+    }
+
     override suspend fun deleteBook(book: Book) {
         appDao.delBook(book.toEntity())
     }

@@ -15,6 +15,10 @@ interface AppRepository {
 
     suspend fun getAllDataFromDb(): List<MyListable>
 
+    suspend fun updateAuthorInDb(author: Author)
+
+    suspend fun updateBookInDb(book: Book)
+
     suspend fun deleteBook(book: Book)
 
     suspend fun deleteAuthor(author: Author)

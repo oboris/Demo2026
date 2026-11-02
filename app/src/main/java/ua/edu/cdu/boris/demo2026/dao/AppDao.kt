@@ -6,6 +6,7 @@ import androidx.room3.Insert
 import androidx.room3.OnConflictStrategy
 import androidx.room3.Query
 import androidx.room3.Transaction
+import androidx.room3.Update
 import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.entity.BookEntity
 import ua.edu.cdu.boris.demo2026.entity.BookWithAuthor
@@ -18,6 +19,9 @@ interface AppDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllAuthors(authorsEntity: List<AuthorEntity>)
+
+    @Update
+    suspend fun updateAuthor(authorEntity: AuthorEntity)
 
     @Delete
     suspend fun delAuthor(authorEntity: AuthorEntity)
@@ -37,6 +41,9 @@ interface AppDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllBooks(booksEntity: List<BookEntity>)
+
+    @Update
+    suspend fun updateBook(bookEntity: BookEntity)
 
     @Delete
     suspend fun delBook(bookEntity: BookEntity)
