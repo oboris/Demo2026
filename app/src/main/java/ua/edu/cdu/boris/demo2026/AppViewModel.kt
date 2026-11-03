@@ -5,14 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.repository.AppRepository
+import ua.edu.cdu.boris.demo2026.ui.navigation.Screen
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,6 +28,25 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 //        )
 
     private val appRepository: AppRepository = (application as AppDemo2026).appRepository
+
+    val homeBackStack: StateFlow<List<Screen>>
+        field = MutableStateFlow<List<Screen>>(listOf(Screen.Home))
+
+    fun navigateTo(screen: Screen) {
+        homeBackStack.update { currentStack ->
+            currentStack + screen
+        }
+    }
+
+    fun navigateBack(): Boolean {
+        if (homeBackStack.value.size > 1) {
+            homeBackStack.update { currentStack ->
+                currentStack.dropLast(1)
+            }
+            return true
+        }
+        return false
+    }
 
     val myHomeText: StateFlow<String>
         field = MutableStateFlow("qqqq")

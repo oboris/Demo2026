@@ -31,6 +31,7 @@ fun AuthorCard(
     author: Author?,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    showDelBtn: Boolean = true,
     onDelBtnClick: () -> Unit = {},
 ) {
     Card(
@@ -85,9 +86,11 @@ fun AuthorCard(
                 )
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
+            if (showDelBtn) {
+                Spacer(modifier = Modifier.width(16.dp))
 
-            DeleteButton(onDelBtnClick)
+                DeleteButton(onDelBtnClick)
+            }
         }
     }
 }

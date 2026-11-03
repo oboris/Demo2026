@@ -1,5 +1,6 @@
 package ua.edu.cdu.boris.demo2026.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,13 +8,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.edu.cdu.boris.demo2026.AppViewModel
+import ua.edu.cdu.boris.demo2026.R
+import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.ui.components.AuthorCard
 
@@ -21,24 +32,43 @@ import ua.edu.cdu.boris.demo2026.ui.components.AuthorCard
 @Composable
 fun BookDetailScreen(
     book: Book,
+    onBackClick: () -> Unit,
+    onAuthorCardClick: (author: Author) -> Unit,
     appViewModel: AppViewModel = viewModel()
 ){
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("Book ${book.title} Detail Screen") },
-//                navigationIcon = {
-//                    IconButton(onClick = { /* "Open nav drawer" */ }) {
-//                        Icon(Icons.Filled.Menu, contentDescription = "Localized description")
-//                    }
-//                },
+                title = {
+                    Text(
+                        text = book.title,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            painterResource(R.drawable.outline_arrow_back_24),
+                            contentDescription = "Back"
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface
+                )
             )
         },
     ) { innerPadding ->
         Column(modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -53,9 +83,12 @@ fun BookDetailScreen(
                 Text(text = "Pages")
                 Text(text = book.pages.toString())
             }
-            AuthorCard(book.author)
-
-
+            AuthorCard(
+                book.author,
+                showDelBtn = false,
+                onClick = {
+                    book.author?.let { onAuthorCardClick(it) }
+                })
         }
     }
 }
