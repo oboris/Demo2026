@@ -12,7 +12,7 @@ import ua.edu.cdu.boris.demo2026.ui.screens.BookDetailScreen
 import ua.edu.cdu.boris.demo2026.ui.screens.HomeScreen
 
 @Composable
-fun HomeNavDisplay(modifier: Modifier){
+fun HomeNavDisplay(modifier: Modifier) {
     val backStack = rememberNavBackStack(Screen.Home)
 
     NavDisplay(
@@ -23,6 +23,12 @@ fun HomeNavDisplay(modifier: Modifier){
                 HomeScreen(
                     modifier = modifier,
                     name = stringResource(R.string.greeting_name),
+                    onAuthorCardClick = { author ->
+                        backStack.add(Screen.AuthorDetails(author))
+                    },
+                    onBookCardClick = { book ->
+                        backStack.add(Screen.BookDetails(book))
+                    }
                 )
             }
 

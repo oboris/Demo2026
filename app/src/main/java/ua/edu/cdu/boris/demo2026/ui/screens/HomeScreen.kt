@@ -32,7 +32,11 @@ import ua.edu.cdu.boris.demo2026.ui.components.BookCard
 
 @Composable
 fun HomeScreen(
-    name: String, modifier: Modifier, appViewModel: AppViewModel = viewModel()
+    name: String,
+    modifier: Modifier,
+    appViewModel: AppViewModel = viewModel(),
+    onAuthorCardClick: (author: Author) -> Unit,
+    onBookCardClick: (book: Book) -> Unit,
 ) {
     val myText by appViewModel.myHomeText.collectAsStateWithLifecycle()
     val appList by appViewModel.appLiveList.observeAsState(emptyList())
@@ -71,6 +75,9 @@ fun HomeScreen(
                         author = item,
                         onDelBtnClick = {
                             appViewModel.deleteAuthor(item)
+                        },
+                        onClick = {
+                            onAuthorCardClick(item)
                         }
                     )
 
@@ -78,6 +85,9 @@ fun HomeScreen(
                         book = item,
                         onDelBtnClick = {
                             appViewModel.deleteBook(item)
+                        },
+                        onClick = {
+                            onBookCardClick(item)
                         }
                     )
 
