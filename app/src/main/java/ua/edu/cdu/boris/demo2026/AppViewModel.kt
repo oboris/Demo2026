@@ -12,11 +12,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ua.edu.cdu.boris.demo2026.entity.BookEntity
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.repository.AppRepository
 import ua.edu.cdu.boris.demo2026.ui.navigation.Screen
+import ua.edu.cdu.boris.demo2026.util.toEntity
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -105,6 +107,24 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             appRepository.addAuthorsToDb(appRepository.getLocalAuthors())
             appRepository.addBooksToDb(appRepository.getLocalBooks())
+            getAllData()
+        }
+    }
+
+    fun loadAllDataToDb() {
+        viewModelScope.launch {
+            val booksFromApi = appRepository.loadBooksFromApi(4, 20)
+            val authors = booksFromApi.map { it.author }.distinctBy { it.guid }
+            val insertIds = appRepository.addAuthorsToDb(authors.map { it.toEntity() })
+            val guidToLocalAuthorId = authors.map { it.guid }.zip(insertIds).toMap()
+            val bookEntities = booksFromApi.map { dto ->
+                BookEntity(
+                    title = dto.title,
+                    pages = dto.pages,
+                    authorId = guidToLocalAuthorId.getValue(dto.author.guid)
+                )
+            }
+            appRepository.addBooksToDb(bookEntities)
             getAllData()
         }
     }

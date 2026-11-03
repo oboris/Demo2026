@@ -1,6 +1,9 @@
 package ua.edu.cdu.boris.demo2026.repository
 
+import ua.edu.cdu.boris.demo2026.api.AppApi
+import ua.edu.cdu.boris.demo2026.api.AppRetrofitClient
 import ua.edu.cdu.boris.demo2026.dao.AppDao
+import ua.edu.cdu.boris.demo2026.dto.BookDto
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.HorizontalList
@@ -46,6 +49,23 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         Book("Book 45", 80, myAuthorList[0], id = 15),
         myAuthorList[4],
     )
+
+    private val myRetrofitClient = AppRetrofitClient.getClient()
+    private val myApi = myRetrofitClient.create(AppApi::class.java)
+
+    override suspend fun loadBooksFromApi(authorNumbers: Int, bookNumbers: Int): List<BookDto> {
+
+        val booksResponse = myApi.getBooksWithAuthors(
+            authorNumbers,
+            bookNumbers
+        )
+
+        return if (booksResponse.isSuccessful) {
+            booksResponse.body()?:emptyList()
+        } else{
+            emptyList()
+        }
+    }
 
     override suspend fun addAuthorsToDb(authors: List<Author>) {
         appDao.insertAllAuthors(authors.map { it.toEntity() })

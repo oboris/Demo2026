@@ -45,6 +45,10 @@ room3 {
 }
 
 dependencies {
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.retrofit.converter.gson)
+    implementation(libs.google.gson)
+
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)

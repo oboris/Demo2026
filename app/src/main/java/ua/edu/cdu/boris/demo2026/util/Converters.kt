@@ -1,5 +1,7 @@
 package ua.edu.cdu.boris.demo2026.util
 
+import ua.edu.cdu.boris.demo2026.dto.AuthorDto
+import ua.edu.cdu.boris.demo2026.dto.BookDto
 import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.entity.BookEntity
 import ua.edu.cdu.boris.demo2026.entity.BookWithAuthor
@@ -37,4 +39,22 @@ fun BookWithAuthor.toDomain() = Book(
     pages = this.bookEntity.pages,
     author = this.authorEntity?.toDomain(),
     id = this.bookEntity.id
+)
+
+fun BookDto.toDomain() = Book(
+    title = title,
+    pages = pages,
+    author = author.toDomain(),
+    id = 0
+)
+
+fun AuthorDto.toEntity() = AuthorEntity(
+    name = "$firstName $lastName",
+    birthday = birthday
+)
+
+fun AuthorDto.toDomain() = Author(
+    name = "$firstName $lastName",
+    birthday = birthday,
+    id = 0
 )
