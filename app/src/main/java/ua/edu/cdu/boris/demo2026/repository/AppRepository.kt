@@ -6,7 +6,7 @@ import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
 
 interface AppRepository {
-    suspend fun addAuthorsToDb(authors: List<Author>)
+    suspend fun addAuthorsToDb(authors: List<Author>): List<Long>
 
     suspend fun addBooksToDb(books: List<Book>)
 

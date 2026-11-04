@@ -18,7 +18,7 @@ interface AppDao {
     suspend fun insertAuthor(authorEntity: AuthorEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllAuthors(authorsEntity: List<AuthorEntity>)
+    suspend fun insertAllAuthors(authorsEntity: List<AuthorEntity>): List<Long>
 
     @Update
     suspend fun updateAuthor(authorEntity: AuthorEntity)

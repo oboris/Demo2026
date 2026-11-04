@@ -124,6 +124,19 @@ fun HomeScreen(
                 text = "Clear Data Base",
             )
         }
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
+            onClick = {
+                appViewModel.loadAllDataFromApiToDb()
+            },
+        ) {
+            Text(
+                text = "Load Data from API",
+            )
+        }
     }
 }
 

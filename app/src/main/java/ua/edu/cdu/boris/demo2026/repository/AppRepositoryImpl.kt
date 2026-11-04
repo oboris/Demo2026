@@ -67,8 +67,8 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         }
     }
 
-    override suspend fun addAuthorsToDb(authors: List<Author>) {
-        appDao.insertAllAuthors(authors.map { it.toEntity() })
+    override suspend fun addAuthorsToDb(authors: List<Author>): List<Long> {
+        return appDao.insertAllAuthors(authors.map { it.toEntity() })
     }
 
     override suspend fun addBooksToDb(books: List<Book>) {

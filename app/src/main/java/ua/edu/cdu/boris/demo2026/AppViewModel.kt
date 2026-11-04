@@ -18,6 +18,7 @@ import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.repository.AppRepository
 import ua.edu.cdu.boris.demo2026.ui.navigation.Screen
+import ua.edu.cdu.boris.demo2026.util.toDomain
 import ua.edu.cdu.boris.demo2026.util.toEntity
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
@@ -111,20 +112,25 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadAllDataToDb() {
+    fun loadAllDataFromApiToDb() {
         viewModelScope.launch {
             val booksFromApi = appRepository.loadBooksFromApi(4, 20)
             val authors = booksFromApi.map { it.author }.distinctBy { it.guid }
-            val insertIds = appRepository.addAuthorsToDb(authors.map { it.toEntity() })
-            val guidToLocalAuthorId = authors.map { it.guid }.zip(insertIds).toMap()
-            val bookEntities = booksFromApi.map { dto ->
-                BookEntity(
+            val insertIds = appRepository.addAuthorsToDb(authors.map { it.toDomain() })
+            val guidToLocalAuthorId = authors.zip(insertIds).toMap()
+            val books = booksFromApi.map { dto ->
+                Book(
                     title = dto.title,
                     pages = dto.pages,
-                    authorId = guidToLocalAuthorId.getValue(dto.author.guid)
+                    author = Author(
+                        id = guidToLocalAuthorId.getValue(dto.author).toInt(),
+                        name = dto.author.firstName + dto.author.lastName,
+                        birthday = dto.author.birthday,
+                    ),
+                    id = 0
                 )
             }
-            appRepository.addBooksToDb(bookEntities)
+            appRepository.addBooksToDb(books)
             getAllData()
         }
     }
