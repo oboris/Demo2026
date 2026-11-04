@@ -1,6 +1,6 @@
 package ua.edu.cdu.boris.demo2026.repository
 
-import ua.edu.cdu.boris.demo2026.api.AppApi
+import ua.edu.cdu.boris.demo2026.api.AppRetrofitApi
 import ua.edu.cdu.boris.demo2026.api.AppRetrofitClient
 import ua.edu.cdu.boris.demo2026.dao.AppDao
 import ua.edu.cdu.boris.demo2026.dto.BookDto
@@ -51,7 +51,7 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
     )
 
     private val myRetrofitClient = AppRetrofitClient.getClient()
-    private val myApi = myRetrofitClient.create(AppApi::class.java)
+    private val myApi = myRetrofitClient.create(AppRetrofitApi::class.java)
 
     override suspend fun loadBooksFromApi(authorNumbers: Int, bookNumbers: Int): List<BookDto> {
 

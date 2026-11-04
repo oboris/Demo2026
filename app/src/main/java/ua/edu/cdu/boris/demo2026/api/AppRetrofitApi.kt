@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ua.edu.cdu.boris.demo2026.dto.BookDto
 
-interface AppApi {
+interface AppRetrofitApi {
 
     @GET("bookswithauthors.php")
     suspend fun getBooksWithAuthors(
