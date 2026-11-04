@@ -45,6 +45,11 @@ room3 {
 }
 
 dependencies {
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.retrofit.converter.gson)
     implementation(libs.google.gson)
