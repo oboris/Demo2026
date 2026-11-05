@@ -83,6 +83,7 @@ fun BookDetailScreen(
                 Text(text = "Pages")
                 Text(text = book.pages.toString())
             }
+
             AuthorCard(
                 book.author,
                 showDelBtn = false,
