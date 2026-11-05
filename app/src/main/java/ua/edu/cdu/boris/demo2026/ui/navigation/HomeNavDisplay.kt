@@ -16,7 +16,10 @@ import ua.edu.cdu.boris.demo2026.ui.screens.BookDetailScreen
 import ua.edu.cdu.boris.demo2026.ui.screens.HomeScreen
 
 @Composable
-fun HomeNavDisplay(modifier: Modifier, appViewModel: AppViewModel = viewModel()) {
+fun HomeNavDisplay(
+    modifier: Modifier,
+    appViewModel: AppViewModel = viewModel()
+) {
 //    val backStack = rememberNavBackStack(Screen.Home)
     val backStack by appViewModel.homeBackStack.collectAsState()
 
