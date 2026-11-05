@@ -12,6 +12,7 @@ sealed interface Screen : NavKey{
 
     @Serializable
     data class AuthorDetails(val author: Author) : Screen
+
     @Serializable
     data class BookDetails(val book: Book) : Screen
 }
