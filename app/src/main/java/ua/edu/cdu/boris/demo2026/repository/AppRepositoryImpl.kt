@@ -3,7 +3,7 @@ package ua.edu.cdu.boris.demo2026.repository
 import ua.edu.cdu.boris.demo2026.api.AppRetrofitApi
 import ua.edu.cdu.boris.demo2026.api.AppRetrofitClient
 import ua.edu.cdu.boris.demo2026.dao.AppDao
-import ua.edu.cdu.boris.demo2026.dto.BookDto
+import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.HorizontalList
@@ -51,11 +51,11 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
     )
 
     private val appRetrofitClient = AppRetrofitClient.getClient()
-    private val appApi = appRetrofitClient.create(AppRetrofitApi::class.java)
+    private val appRetrofitApi = appRetrofitClient.create(AppRetrofitApi::class.java)
 
-    override suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookDto> {
+    override suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto> {
 
-        val booksResponse = appApi.getBooksWithAuthors(
+        val booksResponse = appRetrofitApi.getBooksWithAuthors(
             authorNumbers,
             bookNumbers
         )
@@ -67,10 +67,10 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         }
     }
 
-    override suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookDto> {
+    override suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto> {
 
         //TODO ?????????????????????
-        val booksResponse = appApi.getBooksWithAuthors(
+        val booksResponse = appRetrofitApi.getBooksWithAuthors(
             authorNumbers,
             bookNumbers
         )

@@ -1,6 +1,6 @@
 package ua.edu.cdu.boris.demo2026.repository
 
-import ua.edu.cdu.boris.demo2026.dto.BookDto
+import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
 import ua.edu.cdu.boris.demo2026.model.MyListable
@@ -32,7 +32,7 @@ interface AppRepository {
 
     suspend fun clearAllData()
 
-    suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookDto>
+    suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto>
 
-    suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookDto>
+    suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto>
 }

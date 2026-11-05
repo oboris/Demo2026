@@ -1,7 +1,7 @@
 package ua.edu.cdu.boris.demo2026.util
 
-import ua.edu.cdu.boris.demo2026.dto.AuthorDto
-import ua.edu.cdu.boris.demo2026.dto.BookDto
+import ua.edu.cdu.boris.demo2026.dto.AuthorRetrofitDto
+import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.entity.BookEntity
 import ua.edu.cdu.boris.demo2026.entity.BookWithAuthor
@@ -41,19 +41,19 @@ fun BookWithAuthor.toDomain() = Book(
     id = this.bookEntity.id
 )
 
-fun BookDto.toDomain() = Book(
+fun BookRetrofitDto.toDomain() = Book(
     title = title,
     pages = pages,
     author = author.toDomain(),
     id = 0
 )
 
-fun AuthorDto.toEntity() = AuthorEntity(
+fun AuthorRetrofitDto.toEntity() = AuthorEntity(
     name = "$firstName $lastName",
     birthday = birthday
 )
 
-fun AuthorDto.toDomain() = Author(
+fun AuthorRetrofitDto.toDomain() = Author(
     name = "$firstName $lastName",
     birthday = birthday,
     id = 0

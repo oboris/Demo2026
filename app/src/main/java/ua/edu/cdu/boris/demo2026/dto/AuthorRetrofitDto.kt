@@ -2,7 +2,7 @@ package ua.edu.cdu.boris.demo2026.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class AuthorDto(
+data class AuthorRetrofitDto(
     @SerializedName("first_name")
     val firstName: String,
 
