@@ -32,7 +32,13 @@ interface AppRepository {
 
     suspend fun clearAllData()
 
-    suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto>
+    suspend fun loadBooksFromApiRetrofit(
+        authorNumbers: Int,
+        bookNumbers: Int
+    ): List<BookRetrofitDto>
 
-    suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto>
+    suspend fun loadBooksFromApiKtor(
+        authorNumbers: Int,
+        bookNumbers: Int
+    ): List<BookRetrofitDto>
 }

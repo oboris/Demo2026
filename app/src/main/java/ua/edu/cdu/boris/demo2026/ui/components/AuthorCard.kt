@@ -98,5 +98,11 @@ fun AuthorCard(
 @Preview
 @Composable
 fun PreviewAuthorCard() {
-    AuthorCard(author = Author("Drtyu", "11/11/1111", 1))
+    AuthorCard(
+        author = Author(
+            "Drtyu",
+            "11/11/1111",
+            1
+        )
+    )
 }

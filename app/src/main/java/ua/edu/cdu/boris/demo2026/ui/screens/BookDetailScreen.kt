@@ -35,7 +35,7 @@ fun BookDetailScreen(
     onBackClick: () -> Unit,
     onAuthorCardClick: (author: Author) -> Unit,
     appViewModel: AppViewModel = viewModel()
-){
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -63,23 +63,26 @@ fun BookDetailScreen(
             )
         },
     ) { innerPadding ->
-        Column(modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(text = "Book Title")
                 Text(text = book.title)
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(text = "Pages")
                 Text(text = book.pages.toString())
             }
@@ -89,7 +92,8 @@ fun BookDetailScreen(
                 showDelBtn = false,
                 onClick = {
                     book.author?.let { onAuthorCardClick(it) }
-                })
+                }
+            )
         }
     }
 }

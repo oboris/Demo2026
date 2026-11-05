@@ -53,7 +53,10 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
     private val appRetrofitClient = AppRetrofitClient.getClient()
     private val appRetrofitApi = appRetrofitClient.create(AppRetrofitApi::class.java)
 
-    override suspend fun loadBooksFromApiRetrofit(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto> {
+    override suspend fun loadBooksFromApiRetrofit(
+        authorNumbers: Int,
+        bookNumbers: Int
+    ): List<BookRetrofitDto> {
 
         val booksResponse = appRetrofitApi.getBooksWithAuthors(
             authorNumbers,
@@ -67,7 +70,10 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         }
     }
 
-    override suspend fun loadBooksFromApiKtor(authorNumbers: Int, bookNumbers: Int): List<BookRetrofitDto> {
+    override suspend fun loadBooksFromApiKtor(
+        authorNumbers: Int,
+        bookNumbers: Int
+    ): List<BookRetrofitDto> {
 
         //TODO ?????????????????????
         val booksResponse = appRetrofitApi.getBooksWithAuthors(

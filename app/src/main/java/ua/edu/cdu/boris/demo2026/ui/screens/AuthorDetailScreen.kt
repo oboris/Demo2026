@@ -32,7 +32,7 @@ fun AuthorDetailScreen(
     author: Author,
     onBackClick: () -> Unit,
     appViewModel: AppViewModel = viewModel()
-){
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -59,28 +59,30 @@ fun AuthorDetailScreen(
                 )
             )
         },
-        ) { innerPadding ->
-        Column(modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp),
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(text = "Author Name")
                 Text(text = author.name)
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(text = "Birthdate")
                 Text(text = author.birthday)
             }
-
         }
     }
 }

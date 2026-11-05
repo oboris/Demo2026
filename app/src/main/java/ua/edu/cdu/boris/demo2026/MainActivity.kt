@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import ua.edu.cdu.boris.demo2026.ui.navigation.HomeNavDisplay
 import ua.edu.cdu.boris.demo2026.ui.screens.FavoritesScreen
-import ua.edu.cdu.boris.demo2026.ui.screens.HomeScreen
 import ua.edu.cdu.boris.demo2026.ui.theme.Demo2026Theme
 
 class MainActivity : ComponentActivity() {
@@ -59,7 +58,7 @@ fun Demo2026App() {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            when(currentDestination){
+            when (currentDestination) {
                 AppDestinations.HOME -> HomeNavDisplay(
                     modifier = Modifier.padding(innerPadding)
                 )
@@ -70,7 +69,7 @@ fun Demo2026App() {
                 AppDestinations.FAVORITES -> FavoritesScreen(
                     modifier = Modifier.padding(innerPadding),
                     name = stringResource(R.string.greeting_name),
-                    )
+                )
             }
 
         }

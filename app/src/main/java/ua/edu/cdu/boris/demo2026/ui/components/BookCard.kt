@@ -104,5 +104,16 @@ fun BookCard(
 @Preview
 @Composable
 fun PreviewBookCard(){
-    BookCard(book = Book("Boor Title", 100, Author("Author Name", "11.12.1222", 1), 1))
+    BookCard(
+        book = Book(
+            "Book Title",
+            100,
+            Author(
+                "Author Name",
+                "11.12.1222",
+                1
+            ),
+            1
+        )
+    )
 }

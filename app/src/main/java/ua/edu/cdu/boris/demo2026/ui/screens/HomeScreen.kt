@@ -42,7 +42,8 @@ fun HomeScreen(
     val appList by appViewModel.appLiveList.observeAsState(emptyList())
 
     Column(
-        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Hello in Home $name! $myText",
@@ -69,7 +70,8 @@ fun HomeScreen(
                             is HorizontalList -> item.hashCode()
                         }
                     }"
-                }) { item ->
+                }
+            ) { item ->
                 when (item) {
                     is Author -> AuthorCard(
                         author = item,
@@ -161,7 +163,9 @@ fun HorizontalItem(
                 items = horizontalList.authorList,
                 key = { author -> "${author.id}_${author.name}" }) { author ->
                 AuthorHorizontalCard(
-                    author = author, onClick = { onAuthorClick(author) })
+                    author = author,
+                    onClick = { onAuthorClick(author) }
+                )
             }
         }
     }
