@@ -6,9 +6,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AppRetrofitClient {
     private const val BASE_URL = "http://boris.cdu.edu.ua/api/"
 
-    fun getClient(): Retrofit =
+    val instance: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+//    fun getClient(): Retrofit =
+//        Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
 }

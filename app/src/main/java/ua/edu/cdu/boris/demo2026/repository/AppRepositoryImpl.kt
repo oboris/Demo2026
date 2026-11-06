@@ -14,7 +14,11 @@ import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.util.toDomain
 import ua.edu.cdu.boris.demo2026.util.toEntity
 
-class AppRepositoryImpl(private val appDao: AppDao) : AppRepository {
+class AppRepositoryImpl(
+    private val appDao: AppDao,
+    private val appRetrofitApi: AppRetrofitApi,
+    private val appKtorApi: AppKtorApi
+) : AppRepository {
 
     val myAuthorList: List<Author> = listOf(
         Author("11 Author", "11/11/2022", id = 1),
@@ -53,8 +57,8 @@ class AppRepositoryImpl(private val appDao: AppDao) : AppRepository {
         myAuthorList[4],
     )
 
-    private val appRetrofitClient = AppRetrofitClient.getClient()
-    private val appRetrofitApi = appRetrofitClient.create(AppRetrofitApi::class.java)
+//    private val appRetrofitClient = AppRetrofitClient.getClient()
+//    private val appRetrofitApi = appRetrofitClient.create(AppRetrofitApi::class.java)
 
     override suspend fun loadBooksFromApiRetrofit(
         authorNumbers: Int,
@@ -73,8 +77,8 @@ class AppRepositoryImpl(private val appDao: AppDao) : AppRepository {
         }
     }
 
-    private val appKtorClient = AppKtorClient.instance
-    private val appKtorApi = AppKtorApi(appKtorClient)
+//    private val appKtorClient = AppKtorClient.instance
+//    private val appKtorApi = AppKtorApi(appKtorClient)
 
     override suspend fun loadBooksFromApiKtor(
         authorNumbers: Int,
