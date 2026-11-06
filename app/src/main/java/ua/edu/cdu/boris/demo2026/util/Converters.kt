@@ -1,6 +1,8 @@
 package ua.edu.cdu.boris.demo2026.util
 
+import ua.edu.cdu.boris.demo2026.dto.AuthorKtorDto
 import ua.edu.cdu.boris.demo2026.dto.AuthorRetrofitDto
+import ua.edu.cdu.boris.demo2026.dto.BookKtorDto
 import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.entity.AuthorEntity
 import ua.edu.cdu.boris.demo2026.entity.BookEntity
@@ -54,6 +56,24 @@ fun AuthorRetrofitDto.toEntity() = AuthorEntity(
 )
 
 fun AuthorRetrofitDto.toDomain() = Author(
+    name = "$firstName $lastName",
+    birthday = birthday,
+    id = 0
+)
+
+fun BookKtorDto.toDomain() = Book(
+    title = title,
+    pages = pages,
+    author = author.toDomain(),
+    id = 0
+)
+
+fun AuthorKtorDto.toEntity() = AuthorEntity(
+    name = "$firstName $lastName",
+    birthday = birthday
+)
+
+fun AuthorKtorDto.toDomain() = Author(
     name = "$firstName $lastName",
     birthday = birthday,
     id = 0

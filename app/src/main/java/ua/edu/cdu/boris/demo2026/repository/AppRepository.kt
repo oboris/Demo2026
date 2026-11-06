@@ -1,5 +1,6 @@
 package ua.edu.cdu.boris.demo2026.repository
 
+import ua.edu.cdu.boris.demo2026.dto.BookKtorDto
 import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
@@ -40,5 +41,5 @@ interface AppRepository {
     suspend fun loadBooksFromApiKtor(
         authorNumbers: Int,
         bookNumbers: Int
-    ): List<BookRetrofitDto>
+    ): List<BookKtorDto>
 }

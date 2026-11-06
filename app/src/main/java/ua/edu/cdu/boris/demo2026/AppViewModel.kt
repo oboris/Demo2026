@@ -108,9 +108,32 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun loadAllDataFromApiToDb() {
+    fun retrofitLoadAllDataFromApiToDb() {
         viewModelScope.launch {
             val booksFromApi = appRepository.loadBooksFromApiRetrofit(4, 20)
+            val authors = booksFromApi.map { it.author }.distinctBy { it.guid }
+            val insertIds = appRepository.addAuthorsToDb(authors.map { it.toDomain() })
+            val guidToLocalAuthorId = authors.zip(insertIds).toMap()
+            val books = booksFromApi.map { dto ->
+                Book(
+                    title = dto.title,
+                    pages = dto.pages,
+                    author = Author(
+                        id = guidToLocalAuthorId.getValue(dto.author).toInt(),
+                        name = dto.author.firstName + dto.author.lastName,
+                        birthday = dto.author.birthday,
+                    ),
+                    id = 0
+                )
+            }
+            appRepository.addBooksToDb(books)
+            getAllData()
+        }
+    }
+
+    fun ktorLoadAllDataFromApiToDb() {
+        viewModelScope.launch {
+            val booksFromApi = appRepository.loadBooksFromApiKtor(4, 20)
             val authors = booksFromApi.map { it.author }.distinctBy { it.guid }
             val insertIds = appRepository.addAuthorsToDb(authors.map { it.toDomain() })
             val guidToLocalAuthorId = authors.zip(insertIds).toMap()

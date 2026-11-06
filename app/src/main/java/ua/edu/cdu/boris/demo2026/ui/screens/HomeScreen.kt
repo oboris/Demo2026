@@ -110,7 +110,7 @@ fun HomeScreen(
             },
         ) {
             Text(
-                text = "Home Button",
+                text = "Home Button + Load Local Data",
             )
         }
 
@@ -132,11 +132,24 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 15.dp),
             onClick = {
-                appViewModel.loadAllDataFromApiToDb()
+                appViewModel.retrofitLoadAllDataFromApiToDb()
             },
         ) {
             Text(
-                text = "Load Data from API",
+                text = "Load Data from API use Retrofit",
+            )
+        }
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
+            onClick = {
+                appViewModel.ktorLoadAllDataFromApiToDb()
+            },
+        ) {
+            Text(
+                text = "Load Data from API use Ktor",
             )
         }
     }

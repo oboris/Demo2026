@@ -1,17 +1,20 @@
 package ua.edu.cdu.boris.demo2026.dto
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class AuthorKtorDto(
-    @SerializedName("first_name")
+    @SerialName("first_name")
     val firstName: String,
 
-    @SerializedName("last_name")
+    @SerialName("last_name")
     val lastName: String,
 
-    @SerializedName("birth_date")
+    @SerialName("birth_date")
     val birthday: String,
 
-    //@SerializedName("guid")
+    //@SerialName("guid")
     val guid: String
 )

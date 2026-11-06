@@ -1,8 +1,11 @@
 package ua.edu.cdu.boris.demo2026.repository
 
+import ua.edu.cdu.boris.demo2026.api.AppKtorApi
+import ua.edu.cdu.boris.demo2026.api.AppKtorClient
 import ua.edu.cdu.boris.demo2026.api.AppRetrofitApi
 import ua.edu.cdu.boris.demo2026.api.AppRetrofitClient
 import ua.edu.cdu.boris.demo2026.dao.AppDao
+import ua.edu.cdu.boris.demo2026.dto.BookKtorDto
 import ua.edu.cdu.boris.demo2026.dto.BookRetrofitDto
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
@@ -11,7 +14,7 @@ import ua.edu.cdu.boris.demo2026.model.MyListable
 import ua.edu.cdu.boris.demo2026.util.toDomain
 import ua.edu.cdu.boris.demo2026.util.toEntity
 
-class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
+class AppRepositoryImpl(private val appDao: AppDao) : AppRepository {
 
     val myAuthorList: List<Author> = listOf(
         Author("11 Author", "11/11/2022", id = 1),
@@ -64,28 +67,35 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
         )
 
         return if (booksResponse.isSuccessful) {
-            booksResponse.body()?:emptyList()
-        } else{
+            booksResponse.body() ?: emptyList()
+        } else {
             emptyList()
         }
     }
 
+    private val appKtorClient = AppKtorClient.instance
+    private val appKtorApi = AppKtorApi(appKtorClient)
+
     override suspend fun loadBooksFromApiKtor(
         authorNumbers: Int,
         bookNumbers: Int
-    ): List<BookRetrofitDto> {
+    ): List<BookKtorDto> {
 
-        //TODO ?????????????????????
-        val booksResponse = appRetrofitApi.getBooksWithAuthors(
+        val booksResponse = appKtorApi.getBooksWithAuthors(
             authorNumbers,
             bookNumbers
         )
 
-        return if (booksResponse.isSuccessful) {
-            booksResponse.body()?:emptyList()
-        } else{
-            emptyList()
-        }
+        var books: List<BookKtorDto> = emptyList()
+
+        booksResponse
+            .onSuccess {
+                books = it
+            }.onFailure {
+                books = emptyList()
+            }
+
+        return books
     }
 
     override suspend fun addAuthorsToDb(authors: List<Author>): List<Long> {
@@ -97,7 +107,7 @@ class AppRepositoryImpl(private val appDao: AppDao): AppRepository {
     }
 
     override suspend fun getBooksFromDb(): List<Book> {
-        return  appDao.getBooks().map { it.toDomain() }
+        return appDao.getBooks().map { it.toDomain() }
     }
 
     override suspend fun getAuthorsFromDb(): List<Author> {
