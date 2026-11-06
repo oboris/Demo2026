@@ -13,7 +13,7 @@ class AppKtorApi(private val httpClient: HttpClient) {
         numBooks: Int
     ): Result<List<BookKtorDto>> {
         return runCatching {
-            val response: List<BookKtorDto> = httpClient.get {
+            val response: List<BookKtorDto> = httpClient.get("bookswithauthors.php") {
                 parameter("numauthors", numAuthors)
                 parameter("numbooks", numBooks)
             }.body()
