@@ -21,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import ua.edu.cdu.boris.demo2026.AppViewModel
 import ua.edu.cdu.boris.demo2026.R
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
@@ -34,7 +32,6 @@ fun BookDetailScreen(
     book: Book,
     onBackClick: () -> Unit,
     onAuthorCardClick: (author: Author) -> Unit,
-    appViewModel: AppViewModel = viewModel()
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),

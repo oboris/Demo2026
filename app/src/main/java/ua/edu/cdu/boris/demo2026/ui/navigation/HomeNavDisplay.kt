@@ -5,9 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import ua.edu.cdu.boris.demo2026.AppViewModel
 import ua.edu.cdu.boris.demo2026.R
@@ -18,7 +16,7 @@ import ua.edu.cdu.boris.demo2026.ui.screens.HomeScreen
 @Composable
 fun HomeNavDisplay(
     modifier: Modifier,
-    appViewModel: AppViewModel = viewModel()
+    appViewModel: AppViewModel
 ) {
 //    val backStack = rememberNavBackStack(Screen.Home)
     val backStack by appViewModel.homeBackStack.collectAsState()
@@ -39,7 +37,8 @@ fun HomeNavDisplay(
                     onBookCardClick = { book ->
 //                        backStack.add(Screen.BookDetails(book))
                         appViewModel.navigateTo(Screen.BookDetails(book))
-                    }
+                    },
+                    appViewModel = appViewModel
                 )
             }
 

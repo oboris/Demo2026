@@ -12,14 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.edu.cdu.boris.demo2026.AppViewModel
 
 @Composable
 fun FavoritesScreen(
     name: String,
     modifier: Modifier = Modifier,
-    appViewModel: AppViewModel = viewModel()
+    appViewModel: AppViewModel
 ) {
     val myText by appViewModel.myFavoritesText.collectAsStateWithLifecycle()
 

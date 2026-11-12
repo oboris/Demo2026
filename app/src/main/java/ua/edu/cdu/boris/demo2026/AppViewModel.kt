@@ -1,9 +1,8 @@
 package ua.edu.cdu.boris.demo2026
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +16,7 @@ import ua.edu.cdu.boris.demo2026.repository.AppRepository
 import ua.edu.cdu.boris.demo2026.ui.navigation.Screen
 import ua.edu.cdu.boris.demo2026.util.toDomain
 
-class AppViewModel(application: Application) : AndroidViewModel(application) {
+class AppViewModel(private val appRepository: AppRepository) : ViewModel() {
 
 //    private val appRepository: AppRepository =
 //        AppRepositoryImpl(
@@ -26,7 +25,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 //            ).appDao()
 //        )
 
-    private val appRepository: AppRepository = (application as AppDemo2026).appRepository
+//    private val appRepository1: AppRepository = (application as AppDemo2026).appRepository
 
     val homeBackStack: StateFlow<List<Screen>>
         field = MutableStateFlow<List<Screen>>(listOf(Screen.Home))

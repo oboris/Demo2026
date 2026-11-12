@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.edu.cdu.boris.demo2026.AppViewModel
 import ua.edu.cdu.boris.demo2026.model.Author
 import ua.edu.cdu.boris.demo2026.model.Book
@@ -34,7 +33,7 @@ import ua.edu.cdu.boris.demo2026.ui.components.BookCard
 fun HomeScreen(
     name: String,
     modifier: Modifier,
-    appViewModel: AppViewModel = viewModel(),
+    appViewModel: AppViewModel,
     onAuthorCardClick: (author: Author) -> Unit,
     onBookCardClick: (book: Book) -> Unit,
 ) {
